@@ -1,0 +1,142 @@
+% hw1.tex - Homework 1 solution for Introduction to Artificial Intelligence class
+
+% Chanmann Lim - September 2014
+
+\documentclass[a4paper]{article}
+
+\usepackage[margin=1 in]{geometry}
+\usepackage{tabularx}
+
+\begin{document}
+\title{CS 7750: Solutions to homework 1}
+\author{Chanmann Lim}
+\date{\today}
+\maketitle
+
+\section*{Exercises}
+
+\paragraph{2.2}
+Let us examine the rationality of various vaccum-cleaner agent functions.
+
+\paragraph{a.}
+Show that the simple vaccum-cleaner agent function described in Figure 2.8 is indeed rational under the assumptions listed on page 38.
+
+\paragraph{Answers:}
+The agent function in the Figure 2.8 will check if the current status is "Dirty" 
+then perform "Suck" action otherwise it will move to the other square then repeat throughout the agent's 
+lifetime. Assuming that the clean square remains clean and one award point is given for each clean square 
+at each time step over 1000 time steps, the agent will obtain 1998 out of 2000 score for the case that 
+both squares are "Dirty" and more score for other environment configurations. Therefore, the agent is indeed rational given the above assumptions.
+
+\paragraph{b.}
+Describe a rational agent function for the case in which each movement costs one point. Does the corresponding agent program require internal state?
+
+\paragraph{Answers:}
+In the case that a rational agent function give a penalty of one point for each 
+movement, the corresponding agent program should store an internal state for all clean squares and do 
+nothing "NoOp" instead of moving "Right" and "Left" endlessly and if the square can become dirty again 
+the agent should periodically check and re-clean if needed.
+
+\paragraph{2.3}
+For each of the following assertions, say whether it is true or false and support your answer with examples or counterexamples where appropriate.
+
+\paragraph{a.} An agent that senses only partial information about the state cannot be perfectly rational.
+
+\paragraph{Answers:}
+(False) An agent can still be perfectly rational with partial information about its environment. 
+For example, people crossing the street given they have looked at both sides of the street and found 
+no incoming cars passing. The decision to go across the street to the other side is rational without fully 
+understanding what is happing on the entire street.
+
+\paragraph{b.} There exist task environments in which no pure reflex agent can behave rationally.
+
+\paragraph{Answers:}
+(True) Simple reflex agents take into account only the current percept, ignoring the sequence of entire percept 
+history. This will make them poorly perform in a stochastic or sequential environment such as chess game, 
+or finding best route that agents' current action determine the possible actions they can perform in the future.
+
+\paragraph{c.} There exists a task environment in which every agent is rational.
+
+\paragraph{Answers:}
+(True) A simple task environment that is single-agent, fully observable, deterministic, episodic, static, 
+and discrete implies simple solution. Vaccum-cleaner world in the textbook is a good example. 
+The simple-reflex agents, the simplest form of agents that only match a state against pre-defined 
+conditions, rationally address the vaccum-cleaner problem given the above simple task environment without 
+employing advanced model, goal or utility-based behaviours.
+
+\paragraph{d.} The input to an agent program is the same as the input to the agent function.
+
+\paragraph{Answers:}
+(False) An agent function is a mathematical function that map a sequence of perceptions into action thus 
+the input for the agent function is the entire percept sequence while an agent program is the concrete 
+implementation of the agent function and it only receive current percept to operate since nothing more 
+is available from the environment. Figure 2.8 illustrates the agent program for REFLEX-VACCUM-AGENT.
+
+\paragraph{e.} Every agent function is implementable by some program/machine combination.
+
+\paragraph{Answers:}
+(False) Since there are infinite numbers of agent functions and problems yet to be solved and they will 
+require infinite time to implement every agent functions in the universe. For all the program/machine 
+combination we are having today are only the subset of the problems have been solved to date. 
+
+\paragraph{2.4}
+
+\paragraph{a.} PEAS description of the task environment:
+
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabularx}{1\textwidth}{ | L || L | L | L | L | }
+\hline
+Agent Type & Performance Measure & Environment & Actuators & Sensors \tabularnewline \hline
+Playing soccer & Goal score & Field, ball, other players, and weather & Feet, hands & Eye and body \tabularnewline \hline
+Exploring the subsurface oceans of Titan & Water density & Titan's surface and space & Spacecraft, and radar & Radio signal frequencies receiver \tabularnewline \hline
+Shopping for used AI books on the Internet & Price & The internet, website, and payment methods & Online transactions & Website content(HTML) \tabularnewline \hline
+Playing a tennis match & Score & Court, ball, net, and opponent & Hands and racket & Eye \tabularnewline \hline
+Practicing tennis against a wall & Numbers of ball hit & Wall, and ball & Hands and racket & Eye \tabularnewline \hline
+Performing a high jump & Height & Ground, bar, and weather & Feet & Eye and body \tabularnewline \hline
+Knitting a sweater & Speed & Needle, yarn and lighting & Hands & Eye \tabularnewline \hline
+Bidding on an item at an auction & Price & Place, time, items and audiences & Hands and mouth & Eye and ear \tabularnewline
+\hline
+\end{tabularx}
+
+\paragraph{a.} Characteristic properties of the task environment:
+
+\begin{tabularx}{1\textwidth}{ | L || c c c c c c | }
+\hline
+Task Environment & Observable & Agents & Deterministic & Episodic & Static & Discrete \tabularnewline \hline
+\hline
+Playing soccer & Partially & Multi & Stochastic & Sequential & Dynamic & Continuous \tabularnewline \hline
+Exploring the subsurface oceans of Titan & Partially & Single & Stochastic & Sequential & Dynamic & Continuous  \tabularnewline \hline
+Shopping for used AI books on the Internet & Partially & Single & Stochastic & Sequential & Semi & Discrete \tabularnewline \hline
+Playing a tennis match & Partially & Multi & Stochastic & Sequential & Dynamic & Discrete \tabularnewline \hline
+Practicing tennis against a wall & Fully & Single & Stochastic & Sequential & Dynamic & Discrete \tabularnewline \hline
+Performing a high jump & Fully & Single & Deterministic & Episodic & Static & Discrete \tabularnewline \hline
+Knitting a sweater & Fully & Single & Deterministic & Sequential & Static & Discrete \tabularnewline \hline
+Bidding on an item at an auction & Fully & Multi & Stochastic & Episodic & Dynamic & Discrete \tabularnewline
+\hline
+\end{tabularx}
+
+\paragraph{2.6}
+This exercise explores the differences between agent functions and agent programs.
+
+\paragraph{a.}
+Can there be more than one agent program that implement a given agent function? Give an example, or show why one is not possible.
+
+\paragraph{Answer:}
+Yes, it is absolutely possible that a given agent function is implemented by more than one designer and then each designer will produce 
+its own agent program for both research and commercial purposes. For instance, mobile phones may be produced by different vendors 
+who follow the same compliant standard for frequencies transceiver.
+
+\paragraph{b.}
+Are there agent functions that cannot be implemented by agent program?
+
+\paragraph{Answer:}
+Yes, There are agent functions that cannot be implemented by agent program.
+
+\paragraph{c.}
+Given a fixed machine architecture, does each agent program implement exactly one agent function?
+
+\paragraph{Answer:}
+Yes, for a given machine architecture, each agent program implement one and only one agent function. One good example would be the REFLEX-VACCUM-AGENT program in Figure 2.8 that only implement the simple reflex agent function for the vacuum-cleaner world.
+
+\end{document}

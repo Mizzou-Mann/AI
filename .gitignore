@@ -1,0 +1,6 @@
+.DS_Store
+*.jpg
+*.aux
+*.dvi
+*.log
+*.synctex.gz
