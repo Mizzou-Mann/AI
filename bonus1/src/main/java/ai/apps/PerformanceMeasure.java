@@ -1,7 +1,8 @@
 package ai.apps;
 
+import ai.core.Agent;
 import ai.core.Environment;
-import ai.core.SimpleReflexAgent;
+import ai.core.Percept;
 
 public class PerformanceMeasure {
     
@@ -11,13 +12,20 @@ public class PerformanceMeasure {
         this.timeStep = timeStep;
     }
 
-    public int evaluate(Environment env, SimpleReflexAgent agent) {
+    public int evaluate(Environment env, Agent agent) {
         int score = 0;
         
         for (int i=0 ; i<timeStep; i++) {
-            env.updateState(agent.execute(env));
-            score += env.getPerformance();
+            String action = agent.simpleReflex(env.getCurrentPercept());
+            env.updateState(action);
+            score += computeScore(env.getCurrentPercept());
         }
         return score;
+    }
+    
+    private int computeScore(Percept percept) {
+        int aScore = percept.getAStatus() ? 1 : 0;
+        int bScore = percept.getBStatus() ? 1 : 0;
+        return aScore + bScore;
     }
 }

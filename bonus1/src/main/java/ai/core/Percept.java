@@ -2,19 +2,75 @@ package ai.core;
 
 public class Percept {
 
-    private Environment env;
+    public enum Location { A, B }
     
-    public Percept(Environment env) {
-        this.env = env;
+    private boolean aStatus;
+    private boolean bStatus;
+    private Location agentLocation;
+    
+    public Percept(boolean aStatus, boolean bStatus, Location agentLocation) {
+        this.aStatus = aStatus;
+        this.bStatus = bStatus;
+        this.agentLocation = agentLocation;
     }
 
+    public boolean isInA() {
+        return agentLocation == Location.A;
+    }
+    
+    public boolean isInB() {
+        return agentLocation == Location.B;
+    }
+    
     public boolean isDirty() {
-        if (env.location == 1) {
-            return env.s1;
-        } else if (env.location == 2) {
-            return env.s2;
+        switch (this.getAgentLocation()) {
+            case A: return !aStatus;
+            case B: return !bStatus;
+            default: return false;
         }
-        return false;
     }
 
+    public boolean getAStatus() {
+        return aStatus;
+    }
+
+    public void setAStatus(boolean aStatus) {
+        this.aStatus = aStatus;
+    }
+
+    public boolean getBStatus() {
+        return bStatus;
+    }
+
+    public void setBStatus(boolean bStatus) {
+        this.bStatus = bStatus;
+    }
+
+    public Location getAgentLocation() {
+        return agentLocation;
+    }
+
+    public void setAgentLocation(Location agentLocation) {
+        this.agentLocation = agentLocation;
+    }
+
+    public void clean() {
+        this.aStatus = isInA() || this.aStatus;
+        this.bStatus = isInB() || this.bStatus;
+    }
+    
+    /**
+     * [ Clean* | Dirty ]
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(" [ ")
+          .append(aStatus ? "Clean" : "Dirty").append(isInA() ? "*" : "")
+          .append(" | ")
+          .append(bStatus ? "Clean" : "Dirty") .append(isInB() ? "*" : "")
+          .append(" ]");
+        
+        return sb.toString(); // [ Clean* | Dirty ]
+    }
 }

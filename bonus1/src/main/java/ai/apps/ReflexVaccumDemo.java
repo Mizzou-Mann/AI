@@ -2,31 +2,43 @@ package ai.apps;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import ai.core.Agent;
 import ai.core.Environment;
-import ai.core.SimpleReflexAgent;
+import ai.core.Percept;
 
 public class ReflexVaccumDemo {
+    
+    private static final int totalConfigurations = 8; 
+    
     public static void main(String[] args) {
-        PerformanceMeasure performanceMeasure = new PerformanceMeasure(1000);
-        SimpleReflexAgent agent = new SimpleReflexAgent();
+        Agent agent = new Agent();
+        List<Percept> percepts = new ArrayList<>(totalConfigurations);
+        percepts.add(new Percept(false, false, Percept.Location.A));
+        percepts.add(new Percept(false, true , Percept.Location.A));
+        percepts.add(new Percept(true , false, Percept.Location.A));
+        percepts.add(new Percept(true , true , Percept.Location.A));
+        percepts.add(new Percept(false, false, Percept.Location.B));
+        percepts.add(new Percept(false, true , Percept.Location.B));
+        percepts.add(new Percept(true , false, Percept.Location.B));
+        percepts.add(new Percept(true , true , Percept.Location.B));
         
-        List<Integer> scores = new ArrayList<Integer>(8); 
+        PerformanceMeasure performanceMeasure = new PerformanceMeasure(1000);        
         double totalScore = 0;
         
-        scores.add(performanceMeasure.evaluate(new Environment(false, false, 1), agent));
-        scores.add(performanceMeasure.evaluate(new Environment(false, true , 1), agent));
-        scores.add(performanceMeasure.evaluate(new Environment(true , false, 1), agent));
-        scores.add(performanceMeasure.evaluate(new Environment(true , true , 1), agent));
-        scores.add(performanceMeasure.evaluate(new Environment(false, false, 2), agent));
-        scores.add(performanceMeasure.evaluate(new Environment(false, true , 2), agent));
-        scores.add(performanceMeasure.evaluate(new Environment(true , false, 2), agent));
-        scores.add(performanceMeasure.evaluate(new Environment(true , true , 2), agent));
-        
-        for(Integer score : scores) {
-            System.out.println("Score: " + score);
+        StringBuilder sb = new StringBuilder();
+        for (Percept percept : percepts) {
+            sb.append(percept.toString())
+              .append(" = ");
+            
+            int score = performanceMeasure.evaluate(new Environment(percept), agent);
             totalScore += score;
+
+            sb.append(score).append("\n");
         }
-        System.out.println("Average score: " + totalScore/8);
+        sb.append("---------------------------\n")
+          .append(" Average score = ")
+          .append(totalScore/totalConfigurations);
+        
+        System.out.println(sb.toString());
     }
 }
