@@ -1,0 +1,60 @@
+% assignment1.tex - Bonus assignment 1 solution for Artificial Intelligence class
+% Chanmann Lim - September 2014
+
+\documentclass[a4paper]{article}
+
+\usepackage[margin=1 in]{geometry}
+\usepackage{listings}
+
+\begin{document}
+\title{CS 7750: Solutions to bonus assignment 1}
+\author{Chanmann Lim}
+\date{\today}
+\maketitle
+
+\lstset{language=Java,title=\lstname,basicstyle=\footnotesize}
+
+\section*{Exercises}
+
+\paragraph{2.9}
+Implement a simple reflex agent for the vacuum environment in Exercise 2.8. Run the environment with this agent for all 
+possible initial dirt configurations and agent locations. Record the performance score for each configuration and the overall 
+average score.
+
+\paragraph{Result:}
+\begin{verbatim}
+ [ Dirty* | Dirty ] = 1998
+ [ Dirty* | Clean ] = 2000
+ [ Clean* | Dirty ] = 1999
+ [ Clean* | Clean ] = 2000
+ [ Dirty | Dirty* ] = 1998
+ [ Dirty | Clean* ] = 1999
+ [ Clean | Dirty* ] = 2000
+ [ Clean | Clean* ] = 2000
+---------------------------
+ Average score = 1999.25
+\end{verbatim}
+
+\paragraph{Implementation description:}
+The overall average score of the agent is the mean of the performance scores of the agent given 8 different possible initial dirt 
+configurations and agent locations and to record the performance score for each dirt configuration of the agent, a 
+performance-measuring environment simulator must be setup. \\
+
+Performance measuring simulator - "PerformanceMeasure" class is able to evaluate an "Environment" given an agent function and 
+measure the performance score for each time step of the agent over the agent's lifetime (in this case is 1000 time-step). \\
+
+"Environment" class contains current state/percept of the vaccum-world and its state can be changed by action of the agent in each time step. For instance, when the agent perform "Suck" the square where the agent is resided will changed from "Dirty" to "Clean". \\
+
+"Agent" class contains simple reflex agent function algorithm to determine its action based upon the input percept. The implementation of 
+Figure 2.8 in the textbook. \\
+
+"Percept" class represents the state of the environment such as the status of square A (clean or dirty), the status of square B, and the agent location. \\
+
+\subsection*{Code:}
+\lstinputlisting{src/main/java/ai/apps/ReflexVaccumDemo.java}
+\lstinputlisting{src/main/java/ai/apps/PerformanceMeasure.java}
+\lstinputlisting{src/main/java/ai/core/Environment.java}
+\lstinputlisting{src/main/java/ai/core/Agent.java}
+\lstinputlisting{src/main/java/ai/core/Percept.java}
+
+\end{document}

@@ -10,7 +10,6 @@ public class Agent {
         } else if (percept.isInB()) {
             action = "Left";
         }
-
         return action;
     }
 }
