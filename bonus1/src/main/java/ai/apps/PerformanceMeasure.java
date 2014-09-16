@@ -16,7 +16,7 @@ public class PerformanceMeasure {
         int score = 0;
         
         for (int i=0 ; i<timeStep; i++) {
-            String action = agent.simpleReflex(env.getCurrentPercept());
+            Agent.Action action = agent.simpleReflex(env.getCurrentPercept());
             env.updateState(action);
             score += computeScore(env.getCurrentPercept());
         }

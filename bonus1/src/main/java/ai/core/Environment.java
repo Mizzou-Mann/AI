@@ -12,13 +12,19 @@ public class Environment {
         return this.currentPercept;
     }
 
-    public void updateState(String action) {
-        if (action == "Suck") {
-            currentPercept.clean();
-        } else if (action == "Right") {
-            currentPercept.setAgentLocation(Percept.Location.B);
-        } else if (action == "Left") {
-            currentPercept.setAgentLocation(Percept.Location.A);
+    public void updateState(Agent.Action action) {
+        switch (action) {
+            case SUCK:
+                currentPercept.clean();
+                break;
+            case RIGHT:
+                currentPercept.setAgentLocation(Percept.Location.B);
+                break;
+            case LEFT:
+                currentPercept.setAgentLocation(Percept.Location.A);
+                break;
+            default:
+                break;
         }
     }
 }

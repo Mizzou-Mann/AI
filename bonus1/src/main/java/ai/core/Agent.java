@@ -1,15 +1,17 @@
 package ai.core;
 
 public class Agent {
-    public String simpleReflex(Percept percept) {
-        String action = null;
+    
+    public enum Action { SUCK, RIGHT, LEFT }
+    
+    public Action simpleReflex(Percept percept) {
         if (percept.isDirty()) {
-            action = "Suck";
+            return Action.SUCK;
         } else if (percept.isInA()) {
-            action = "Right";
+            return Action.RIGHT;
         } else if (percept.isInB()) {
-            action = "Left";
+            return Action.LEFT;
         }
-        return action;
+        return null;
     }
 }
