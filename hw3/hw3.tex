@@ -1,0 +1,55 @@
+% hw3.tex - Solution for homework 3 - Artificial Intelligence
+
+% Chanmann Lim - September 2014
+
+\documentclass[a4paper]{article}
+
+\usepackage[margin=1 in]{geometry}
+\usepackage{amsmath}
+
+\everymath{\displaystyle}
+
+\begin{document}
+\title{CS 7750: Solutions to homework 3}
+\author{Chanmann Lim}
+\date{September 30, 2014}
+\maketitle
+
+\section*{3.14}
+
+\paragraph{a.} True, in the best case scenario depth-first search and $A^{*}$ search with the heuristic function $h(n) = C^{*}$ will only need to expand $d$ nodes to reach the goal, while in the worst case both search algorithms will need $b^{m}$ to find the goal node and they will not be complete in infinite state space.
+
+\paragraph{b.} True, $h(n) = 0$ is an admissible heuristic for 8-puzzle since it's always true that for any 8-puzzle instance you will need zero or more steps to solve. In addition, the average solution cost of the 8-puzzle problem is about 22 which makes $h(n) = 0$ to never overestimate the true cost of its solution thus it is admissible if not too optimistic. 
+
+\section*{3.21}
+
+\paragraph{a.} Uniform-cost search will select the node with the lowest path cost $g(n)$, however, if all step costs happen to be the same the uniform-cost search will expand all the nodes in the same level before moving down the search tree since the nodes at the lower levels will always have higher path cost $g(n)$ than its parent and this is exactly the behavior of breath-first search  "expanding the shallowest node".
+
+\paragraph{b.} Greedy best-first tree search select the node for expansion based on heuristic function $h(n)$ and if $h(n)$ yields the same estimate for every node to the goal node, best-first search will explore one branch until the bottom of the tree after another which is the same behavior found in depth-first search. Thus, depth-first search is a special case of best-first tree search when $h(n) = h(n+1)$.
+
+\paragraph{c.} $A^{*}$ search evaluates the estimated cost of the cheapest solution through n $f(n)$ by the cost to reach the node $g(n)$ and the estimated cost to the goal from the node $h(n)$.
+\begin{align*}
+f(n) = g(n) + h(n)
+\end{align*}
+In the case that $h(n) = 0$, $f(n) = g(n) + 0$ or $f(n) = g(n)$ which is identical to the uniform-cost search algorithm. Thus, uniform-cost search is a special case of $A^{*}$ search where its heuristic function equals to zero.
+
+\section*{3.23}
+The sequence of nodes ($f = g + h$) to be considered by $A^{*}$ search algorithm: \\
+\\
+Lugoj ($244 = 0 + 244$), Mehadia ($311 = 70 + 241$), Drobeta ($387 = 145 + 242$), Croiova ($430 = 265 + 160$), Timisoara ($440 = 111 + 329$), Pitesti ($503 = 403 + 100$), Bucharest ($504 = 403 + 101$).
+
+\section*{3.26}
+
+\paragraph{a.} An unbounded rectangular grid has the branching factor $b = 4$ since there are 4 successors at the origin $(0, 0)$.
+
+\paragraph{b.} Distinct states at depth k = $2k^{2} \quad (k > 0)$.
+
+\paragraph{c.} The maximum number of nodes expanded by breath-first tree search = $2 \times 4^{d+1}$.
+
+\paragraph{d.} The maximum number of nodes expanded by breath-first graph search = $4^{d+1}$.
+
+\paragraph{e.} $h = |u - x| + |v - y|$ is an admissible heuristic for a state at $(u, v)$. $|u-x|$ and $|v-y|$ are the changes in horizontal and vertical direction respectively from $(u, v)$ so the sum of them is just the {\bf Manhattan distance} to the goal state $(x, y)$ and each move using the heuristic will get it one step closer the goal node.\\
+\\
+
+
+\end{document}
